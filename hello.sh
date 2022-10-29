@@ -2,7 +2,63 @@
 # #! - shebang - specify which interpreter to use, and 
 # the first line of any shell scripts should always be this line
 
-#6. The file test operators
+#6. The file test operators 
+# the detailed file test operator reference: https://tldp.org/LDP/abs/html/fto.html)
+
+echo -e "enter the file name: \c"   
+# the -e flag combined with the \c symbol allows you to enter the input at the same line of the echo command
+
+read file_name
+
+if [ -e $file_name ]    # the -e flag checks if the file exists
+then
+    echo "$file_name does exist"
+else 
+    echo "$file_name doesn't exist!"
+fi
+
+if [ -f $file_name ]    # the -f flag checks if the file is a regular file
+then
+    echo "$file_name is a regular file"
+else 
+    echo "$file_name is not a regular file!"
+fi
+
+if [ -d $file_name ]    # the -d flag checks if the input is a directory or not
+then
+    echo "$file_name is a directory"
+else 
+    echo "$file_name isn't a directory!"
+fi
+
+# 2 types of files: 
+# + block special file - a binary file, a video file, or a image file, music file, etc. 
+# + character special file - or a normal file that contains usual text and character
+
+# ei: file_name="/dev/sda2" is a block device
+if [ -b $file_name ]    # the -b flag checks if the input is a block device
+then
+    echo "$file_name is a block device"
+else 
+    echo "$file_name isn't a block device!"
+fi
+
+# ei: file_name="/dev/ttyS1" is a character device
+if [ -c $file_name ]    # the -b flag checks if the input is a character device
+then
+    echo "$file_name is a character device"
+else 
+    echo "$file_name isn't a character device!"
+fi
+
+if [ -s $file_name ]    # the -s flag checks if the file has size greater than 0 
+then
+    echo "The size of $file_name is greater than 0 - means file is not empty"
+else 
+    echo "The size of $file_name isn't greater than 0! It means file is empty. It's a blank file!"
+fi
+
+
 
 ####################################################################################################################################################################################
 
@@ -14,6 +70,8 @@
 # then
 #     statement
 # fi # end of the if statement
+
+# IMPORTANT: There must be spaces between operators and operands
 
 # More about comparison operators here: https://tldp.org/LDP/abs/html/comparison-ops.html 
 
