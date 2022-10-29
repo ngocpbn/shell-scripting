@@ -2,7 +2,64 @@
 # #! - shebang - specify which interpreter to use, and 
 # the first line of any shell scripts should always be this line
 
+#6. The file test operators
 
+####################################################################################################################################################################################
+
+#5. If statement
+
+#the syntax
+
+# if [ condition ]  #note the whitespace surrounding the condition
+# then
+#     statement
+# fi # end of the if statement
+
+# More about comparison operators here: https://tldp.org/LDP/abs/html/comparison-ops.html 
+
+count=10
+if [ 1 -eq $count ] #note: if you don't have whitespace (for ei: if [1 -eq $count]), then it'll be a syntax error
+then 
+    echo "it's true!"
+fi
+
+# instead of using -eq (equal), you can use ==
+if (( 1 < $count )) #note: if you don't have whitespace (for ei: if [1 -eq $count]), then it'll be a syntax error
+then 
+    echo "it's true!"
+fi
+
+# compare strings 
+if [ "abc" == "abc" ]       #you can also use one = too
+then
+    echo "the strings are indeed equal"
+fi
+
+if [[ "a" < "b" ]]
+then 
+    echo "a is less than b"
+fi
+
+# the else clause
+
+if [[ "a" > "b" ]]
+then 
+    echo "a is greater than b"
+else   
+    echo "a is less than b!"
+fi
+
+num=6
+
+if (( $num > 6 ))
+then 
+    echo "num is greater than 6"
+elif (( $num == 6 ))
+then 
+    echo "num is equal to 6"
+else
+    echo "num is less than 6"
+fi
 
 ##########################################################################################################################################################################################3
 
