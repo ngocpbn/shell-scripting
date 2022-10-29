@@ -4,8 +4,50 @@
 
 
 
-#4. How to pass arguments to a script
-echo
+##########################################################################################################################################################################################3
+
+#4. How to pass command-line arguments to a script
+
+##### The 1st way to pass command line arguments ####
+
+# the syntax for passing command-line arguments:
+# ./shell_file_name arg1 agr2 agr3 .....
+
+# arguments are processed in the order they're sent. The indexing of arguments starts
+# at 1, and to access the first argument, use $1, and the same goes to the 2nd and more arguments
+echo "Student's name: $1"
+echo "ID: $2"
+echo "Class: $3"
+
+# so for example, if I pass command line arguments for this file as below:
+# ./hello.sh Natalie 21070100 ICE2021A
+# the output will be: 
+
+# Student's name: Natalie
+# ID: 21070100
+# Class: ICE2021A
+
+# the $0 argument is used to access the command that executes the current shell file
+# so if you echo $0, the output will be ./hello.sh
+echo '$0 =' $0
+
+#### The 2nd way to pass command line arguments - pass arguments into an array ####
+
+# declare an array
+args=("$@")     
+# $@ is the array of all input, and note that if you leave spaces between = and (, there's gonna be an error
+
+echo ${args[0]} ${args[1]} ${args[2]} ${args[3]}
+# so if you pass the command line arguments as "./hello.sh Natalie 21070100 ICE2021A name1 name2 name3 name4 name5"
+# There are already some indexing above (echo "Student's name: $1" ....), so you may think
+# the line echo ${args[0]} ${args[1]} ${args[2]} ${args[3]} will only print name1 name2 name3 name4 name5
+# but no, it actually prints Natalie 21070100 ICE2021A 
+
+# if you want to print all args in the array at one, do this
+echo $@
+
+echo $#     #prints the number of command line args that are passed
+# if you use the command above, it's gonna be 8
 
 ####################################################################################################################
 
@@ -64,6 +106,7 @@ echo "Hi, it's" $name
 echo "I'm" $age
 
 ###################################################################################################################
+
 #1. 
 
 echo "Hello World"
