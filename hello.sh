@@ -6,11 +6,70 @@
 # To run a shell script in the terminal, run the command ./shell_script_file
 ##################
 
+#11. Floating points math operations 
+
+# To perform math operations including floating points, use bc - basic calculator
+
+num1=20.5
+num2=5
+
+echo 'Using bc - basic calculator'
+echo "20.5+5" | bc
+echo "20.5-5" | bc
+echo "20.5*5" | bc
+echo "20.5/5" | bc  # prints 4 instead of 4.1. WHY?
+# How to solve the error in division?
+echo "scale=2;20.5/5" | bc  # use scale. 2 here specifies how many decimal places to display after the point 
+echo "20.5%5" | bc
+
+echo
+
+echo 'Using bc - basic calculator - but with dollar signs and variables as the input of the bc command'
+echo "$num1-$num2" | bc
+echo "$num1+$num2" | bc
+
+echo
+
+num=4
+echo "Square roots"
+echo "scale=2;sqrt($num)" | bc -l   # the -l option calls the math library necessary for calculating sqrt
+echo
+
+echo "power"
+echo "scale=2;3^3" | bc -l
+echo
+###############################################################################################################################################################################################################3
+
 #10. Perform arithmetic operation
 
-############################################################################################################################################################################33
+echo 1 + 1  # it'll not perform any calculation. it'll print 1 + 1 to the terminal only
+echo $(( 1 + 1 ))
 
-#. The OR operator
+num1=20
+num2=4
+
+# syntax #1
+echo "Syntax #1"
+echo "addition: $(( num1 + num2 ))"
+echo "subtraction: $(( num1 - num2 ))"
+echo "multiplication $(( num1 * num2 ))"
+echo "division: $(( num1 / num2 ))"
+echo "floor division: $(( num1 % num2 ))"
+
+echo 
+
+# syntax #2
+echo "Syntax #2"
+echo "addition: $(expr $num1 + $num2 )"
+echo "subtraction: $(expr $num1 - $num2 )"
+echo "multiplication $(expr $num1 \* $num2 )"        
+# Note that for multiplication, you have to use escape character when using expr command
+echo "division: $(expr $num1 / $num2 )"
+echo "floor division: $(expr $num1 % $num2 )"
+
+############################################################################################################################################################################
+
+#9. The OR operator
 
 age=5
 
@@ -35,7 +94,7 @@ else
     echo "You're a college student!" 
 fi
 
-###############################################################################################################################33
+##############################################################################################################################
 
 #8. The AND operator
 
