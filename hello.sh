@@ -2,6 +2,88 @@
 # #! - shebang - specify which interpreter to use, and 
 # the first line of any shell scripts should always be this line
 
+##################
+# To run a shell script in the terminal, run the command ./shell_script_file
+##################
+
+#10. Perform arithmetic operation
+
+############################################################################################################################################################################33
+
+#. The OR operator
+
+age=5
+
+if [ $age -lt 18 ] || [ $age -gt 22 ]       # method 1: ||
+then 
+    echo "You're not a college student."
+else 
+    echo "You're a college student!" 
+fi
+
+if [ $age -lt 18 -o $age -gt 22 ]       # method 2: -o
+then 
+    echo "You're not a college student."
+else 
+    echo "You're a college student!" 
+fi
+
+if [[ $age -lt 18 || $age -gt 22 ]]       # method 3: && and [[]]
+then 
+    echo "You're not a college student."
+else 
+    echo "You're a college student!" 
+fi
+
+###############################################################################################################################33
+
+#8. The AND operator
+
+age=20
+
+if [ $age -gt 18 ] && [ $age -lt 22 ]       # method 1: &&
+then 
+    echo "You're a college student!"
+else 
+    echo "You're not a college student."
+fi
+
+if [ $age -gt 18 -a $age -lt 22 ]       # method 2: -a
+then 
+    echo "You're a college student!"
+else 
+    echo "You're not a college student."
+fi
+
+if [[ $age -gt 18 && $age -lt 22 ]]       # method 3: && and [[]]
+then 
+    echo "You're a college student!"
+else 
+    echo "You're not a college student."
+fi
+
+###################################################################################################################################################################################################3
+
+#7. How to append output to the end of a text file
+
+echo -e "Enter the name of the file: \c"
+read file_name
+
+if [ -f $file_name ]
+then 
+    if [ -w $file_name ]
+    then
+        echo "Enter something. Press Ctrl + D to stop."
+        cat >> $file_name
+    else 
+        echo "File is not writable. Please choose another file!"
+    fi
+else 
+    echo "File doesn't exist!"
+fi
+
+########################################################################################################################################################################################
+
 #6. The file test operators 
 # the detailed file test operator reference: https://tldp.org/LDP/abs/html/fto.html)
 
@@ -58,7 +140,12 @@ else
     echo "The size of $file_name isn't greater than 0! It means file is empty. It's a blank file!"
 fi
 
-
+if [ -x $file_name ]
+then
+    echo "$file_name is executable"
+else
+    echo "$file_name isn't executable"
+fi
 
 ####################################################################################################################################################################################
 
