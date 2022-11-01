@@ -6,6 +6,102 @@
 # To run a shell script in the terminal, run the command ./shell_script_file
 ##################
 
+# General rules that applies almost everywhere in bash script
+# 1. No spaces around the assignment symbol (=)
+# 2. Everything is treated as a string in bash script
+
+
+#14. Array variables
+
+# Bash supports simple 1-D arrays. Arrays in shell script can contain values of the same
+# OR DIFFERENT data types since by default everything in shell script is treated as a string.
+
+# Syntax
+# arr_name=(value1 value2 ... valuen)
+# NOTE: 
+# - No spaces around the = sign
+# - No commas between values
+
+number=(1 2 3 'hihi')
+echo ${number[@]}
+echo ${number[0]}
+echo ${number[1]}
+
+# prints the indexes of the array:
+echo "The indexes: "${!number[@]}
+
+# prints the length of the array
+echo "Array length is" ${#number[@]}
+
+# How to append elements to the end of an array
+number[4]='meo'
+echo "The array after being appended an element to the end:" ${number[@]}
+
+# Update an existing element
+number[2]="replaced_element"
+echo "The array after element at index 2 is replaced with a new one" ${number[@]}
+
+# Remove an element from the array
+unset number[1]
+echo "The indexes after unsetting element at index 1: "${!number[@]}        #prints 0 2 3 4
+echo "The array after using unset to remove element at index 1:" ${number[@]}
+# It means we can leave a position in the array uninitialized, and it can be at any position.
+
+# How to insert elements into an array
+# Note: you can insert new elements at ANY index of the array
+number[9]="at index 9"
+echo "The indexes after inserting an element at index 9: "${!number[@]}     #prints 0 2 3 4 9
+echo "The elements after inserting an element at index 9:" ${number[@]}
+
+number[1]='a new element at index 2'
+echo "The indexes after inserting an element at index 1: "${!number[@]}     #prints 0 1 2 3 4 9
+echo "The elements after inserting an element at index 1:" ${number[@]}
+
+# Variables can be treated as array, and the value of that variable will be stored at index 0
+random_var=aaaaaaaaa
+echo "random_var =" ${random_var[@]}
+echo "random_var =" ${random_var[1]}        #bc aaaaaaaaa is stored at index 0, so there's nothing at index 1
+#################################################################################################################################################################################################################
+
+#12. The case statement
+
+# syntax
+
+# case word in
+#    pattern1)
+#       Statement(s) to be executed if pattern1 matches
+#       ;;
+#    pattern2)
+#       Statement(s) to be executed if pattern2 matches
+#       ;;
+#    pattern3)
+#       Statement(s) to be executed if pattern3 matches
+#       ;;
+#    *)
+#      Default condition to be executed
+#      ;;
+# esac
+
+read -p "Enter a character: " character
+
+case $character in
+    [a-z] )
+        echo "$character is a lowercase character." ;;
+   
+    [A-Z])
+        echo "$character is an uppercase character.";;
+        # NOTE: if you enter an uppercase letter but it prints "is a lowercase" instead, you can fix it
+        # by running the command "LANG=C"
+    
+    [0-9])
+        echo "$character is a number." ;;
+
+    *)
+    echo "Please enter a valid character!" ;;
+esac
+
+##########################################################################################################################################################################################################################
+
 #11. Floating points math operations 
 
 # To perform math operations including floating points, use bc - basic calculator
