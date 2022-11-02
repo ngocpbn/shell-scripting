@@ -27,9 +27,10 @@
 
 ######################################################################################################################################################################
 
-#17. Read a file content in bash
+#17. Read input
 
-# To accept input from a file, use input redirection
+#-------------------------------------------------
+# To read input from a file, use input redirection
 echo "Read file content using loops"
 while read p
 do  
@@ -51,7 +52,9 @@ echo $p
 
 echo
 
-# The second way is to use pipe
+#--------------------------------------------------
+# Read input from another output stream
+# To read input from another output stream, use pipe
 echo "The second method"
 cat text.txt | while read p
 do  
@@ -64,6 +67,7 @@ echo $p
 
 # so it doesn't matter whether it's pipe or input redirection, you'll still need the loop
 
+#---------------------------------------------------
 # Internal Field Separator (IFS)
 # More about IFS: https://www.baeldung.com/linux/ifs-shell-variable 
 # If the file contains special characters like indentation, alignment, etc, you'll need IFS
@@ -104,11 +108,98 @@ done < /etc/host.conf
 
 echo 
 
+#--------------------------------------------
 # Read files using File descriptor
 # Follow this link to read more about this method: https://bash.cyberciti.biz/guide/Reads_from_the_file_descriptor_(fd)#Shell_Script_To_Read_File_Line_by_Line 
 # To see how the code in the link works, run the script read_file_line_by_line_with_fd.sh
 
 #########################################################################################################################################################################################################3
+
+#  LOOPS    
+
+#19. The FOR loop
+
+# Syntax
+# The for loop can have some forms of syntax
+
+# 1st form
+# for variable in sth
+# do  
+#     command1
+#     command2
+#     commandn
+# done
+
+# "variable" can be an element in a list (for ei: 1 2 3 4 ... n; an array, etc.) and it'll look like this
+# for variable in 1 2 3 4 ... n. If it's the case, then the for loop here
+# will be similar to the for each loop in C++ (for each_element:array)
+# if "sth" is a file or are files, then it'll look sth like this
+# for variable in file1 file2 filen
+# if "variable" is a command in a list commands, then it'll look sth like this
+# for commandi in $(linux_command(s))
+
+echo "Execute a list of commands"
+for command_i in ls pwd date 
+do 
+    echo "------------------$command_i----------------------"
+    $command_i
+done
+
+echo -e "\nThe for loop\n"
+for variable in 1 2 3 4 5
+do 
+    echo -e "$variable\n"
+done
+
+echo "iterate from 1 to 10"
+for variable in {1..10}     # {1..10}: iterate from 1 to 10
+do 
+    echo -e "$variable\n"
+done
+
+echo "iterate from 1 to 10 with the step of 2"
+for variable in {1..10..2}     # {1..10}: iterate from 1 to 10 with the step of 2
+do 
+    echo -e "$variable\n"
+done
+# NOTE: this iteration notation is only available in Bash version 4 and higher
+
+# 2nd form
+
+# for (( exp1; exp2; exp3 ))
+# do  
+#     command1
+#     command2
+#     commandn
+# done
+
+# this syntax is common. exp1 is for creating and initializing a counter, exp2 is the condition
+# exp3 is for changing the counter, like incrementing or decrementing.
+
+echo -e "\nThe for loop in 2nd form\n"
+for (( i=0; i<10; i++ ))
+do 
+    echo -e "$i\n"
+done
+
+#18. The UNTIL loop
+
+# Syntax
+# until [ condition ]
+# do
+#     commands
+# done
+# the commands inside will get executed only when the condition returns false.
+# Once the condition becomes true, the execution will stop
+
+counter=1
+
+until [ $counter -eq 10 ]
+do
+    echo $counter
+    ((counter++))
+done
+# Once counter becomes 10, the condition will become true, and execution will stop there.
 
 #15. The WHILE loop
 
