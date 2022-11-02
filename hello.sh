@@ -1,15 +1,141 @@
-#! /bin/bash
+#!/bin/bash
 # #! - shebang - specify which interpreter to use, and 
 # the first line of any shell scripts should always be this line
 
-##################
-# To run a shell script in the terminal, run the command ./shell_script_file
-##################
+# Instead of typing individual commands directly into the terminal, you can put them
+# into a script file (with sh extension) and run it using an interpreter.
+
+##########################################################
+
+# HOW TO RUN A SHELL FILE
+
+# To run an sh file, run the following command
+# interpreter_name shell_file
+# ei: sh script.sh      #run with sh interpreter
+# ei: bash script.sh    #run with bash interpreter
+
+# or you can run an sh file using the command ./shell_script_file, but first,
+# make sure the file has executable permission (use the command ls -l to check). 
+# If not, run the following command to add x permission to it.
+# chmod +x shell_file       # +x: add executable permission
+
+###########################################################
 
 # General rules that applies almost everywhere in bash script
 # 1. No spaces around the assignment symbol (=)
 # 2. Everything is treated as a string in bash script
 
+######################################################################################################################################################################
+
+#17. Read a file content in bash
+
+# To accept input from a file, use input redirection
+echo "Read file content using loops"
+while read p
+do  
+    echo $p
+done < text.txt
+# the content of text.txt will be the input of the while loop. The content of text.txt
+# will be put into the p variable. then the echo command will display
+
+echo "The p variable at the end of the loop: "
+echo $p    
+# prints nothing because the p variable only exists in the above loop. 
+
+# what if you don't use the while loop to read the content in text.txt
+echo "Read file content without the loop."
+read p < text.txt
+echo $p
+# It WON'T read the entire content of the file.
+# That's why you need the loop.
+
+echo
+
+# The second way is to use pipe
+echo "The second method"
+cat text.txt | while read p
+do  
+    echo $p
+done
+
+echo "use pipes without the loop to read the input from a file"
+cat text.txt | read p       # it seems like the problem with read is: it'll stop reading once it encounters whitespace character
+echo $p
+
+# so it doesn't matter whether it's pipe or input redirection, you'll still need the loop
+
+# Internal Field Separator (IFS)
+# More about IFS: https://www.baeldung.com/linux/ifs-shell-variable 
+# If the file contains special characters like indentation, alignment, etc, you'll need IFS
+# IFS is a special variable which determines how bash does word splitting (how to recognize word boundaries) 
+
+test="let's have a test!"
+for i in $test
+do  echo "$i"
+done
+# in the for loop above, we can print individual substrings because in IFS, the default values are a space
+# tab, and newline
+
+# We can also set custom values for IFS
+expression="3;+;5"
+# you should always store the old value of IFS like this
+old_IFS=$IFS
+IFS=';'
+read -a tokens <<< $expression
+
+echo ${tokens[0]}
+echo ${tokens[1]}
+echo ${tokens[2]}
+
+echo -e "\n/etc/host.con"
+while read -r line
+do  
+    echo $line
+done < /etc/host.conf
+
+# Once you're done with IFS, restore the default value back
+IFS=$old_IFS
+
+echo -e "\nPrinting /etc/host.con with the default IFS"
+while read -r line
+do  
+    echo $line
+done < /etc/host.conf
+
+echo 
+
+# Read files using File descriptor
+# Follow this link to read more about this method: https://bash.cyberciti.biz/guide/Reads_from_the_file_descriptor_(fd)#Shell_Script_To_Read_File_Line_by_Line 
+# To see how the code in the link works, run the script read_file_line_by_line_with_fd.sh
+
+#########################################################################################################################################################################################################3
+
+#15. The WHILE loop
+
+# Syntax
+# while [ condition ]
+# do 
+#     command1
+#     command2
+#     ...
+# done
+
+# How to open terminal using bash script
+# terminal_name &
+# Ei: gnome-terminal &
+
+
+number=(1 2 3 'hihi')
+counter=0
+
+echo "Loop through the number array"
+while [ $counter -lt ${#number[@]} ]
+do  
+    echo ${number[$counter]}
+    ((counter++))       # another syntax: counter=$((counter+1)) or ((counter=counter+1))  
+done
+
+##########################################################################################################################################################################################################
 
 #14. Array variables
 
@@ -61,6 +187,7 @@ echo "The elements after inserting an element at index 1:" ${number[@]}
 random_var=aaaaaaaaa
 echo "random_var =" ${random_var[@]}
 echo "random_var =" ${random_var[1]}        #bc aaaaaaaaa is stored at index 0, so there's nothing at index 1
+
 #################################################################################################################################################################################################################
 
 #12. The case statement
@@ -444,6 +571,16 @@ echo $REPLY
 
 #2. Variables
 
+# Syntax for creating variables
+# variable_name=value
+# NOTE: no spaces around the = sign
+
+# Shell scripts run from top to bottom, so only use variables after they're created
+
+# To use a variable, place the dollar sign $ in front of the variable name like this:
+# $variable_name
+
+# Some types of variables
 #type 1: system variable
 # created and maintained by your OS
 # defined in uppercase
